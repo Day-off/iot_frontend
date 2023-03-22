@@ -1,4 +1,9 @@
-# iot_frontend
+# 1oT_frontend
+
+## Technology used
+
+ - @vue/cli 5.0.8
+
 
 ## Project setup
 ```
@@ -15,10 +20,11 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Some notes
+### The information that is displayed
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+ - All Day and night forecasts by date
+ - Average temperature maximum and minimum by Estonia with updated timestamp (I just wanted to make a button)
+### Experience
+ 
+ - Since I have minimal experience with the frontend, this part was much more difficult for me than the backend and took more time, but I am happy with the result.
