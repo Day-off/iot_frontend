@@ -2,37 +2,43 @@
   <div>
     <h2>Forecasts</h2>
     <div class="col-sm-10 mx-auto">
-      <table class="table">
-        <caption>Forecasts Table</caption>
-        <thead>
-        <tr>
-          <th>Date</th>
-          <th>Night</th>
-          <th>Day</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="forecast in forecasts.forecastList" :key="forecast.date">
-          <td>{{ forecast.date }}</td>
-          <td>
-            <ul>
-              <li><strong>Weather:</strong> {{ forecast.night.phenomenon }}</li>
-              <li><strong>Min temperature:</strong> {{ forecast.night.tempmin }}</li>
-              <li><strong>Max temperature:</strong> {{ forecast.night.tempmax }}</li>
-              <li><strong>More info:</strong> {{ forecast.night.text }}</li>
-            </ul>
-          </td>
-          <td>
-            <ul>
-              <li><strong>Weather:</strong> {{ forecast.day.phenomenon }}</li>
-              <li><strong>Min temperature:</strong> {{ forecast.day.tempmin }}</li>
-              <li><strong>Max temperature:</strong> {{ forecast.day.tempmax }}</li>
-              <li><strong>More info:</strong> {{ forecast.day.text }}</li>
-            </ul>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <template v-if="forecasts.forecastList.length > 0">
+        <table class="table">
+          <caption>Forecasts Table</caption>
+          <thead>
+          <tr>
+            <th>Date</th>
+            <th>Night</th>
+            <th>Day</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="forecast in forecasts.forecastList" :key="forecast.date">
+            <td>{{ forecast.date }}</td>
+            <td>
+              <ul>
+                <li><strong>Weather:</strong> {{ forecast.night.phenomenon }}</li>
+                <li><strong>Min temperature:</strong> {{ forecast.night.tempmin }}</li>
+                <li><strong>Max temperature:</strong> {{ forecast.night.tempmax }}</li>
+                <li><strong>More info:</strong> {{ forecast.night.text }}</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li><strong>Weather:</strong> {{ forecast.day.phenomenon }}</li>
+                <li><strong>Min temperature:</strong> {{ forecast.day.tempmin }}</li>
+                <li><strong>Max temperature:</strong> {{ forecast.day.tempmax }}</li>
+                <li><strong>More info:</strong> {{ forecast.day.text }}</li>
+              </ul>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </template>
+      <template v-else>
+        <p style="color: #ffffff">Something went wrong!</p>
+        <p style="color: #ffffff">Check network connection and reload page!</p>
+      </template>
     </div>
   </div>
 </template>
@@ -52,6 +58,8 @@ export default {
   created() {
     axios.get('/api/getFullReport').then(response => {
       this.forecasts.forecastList = response.data.forecastList;
+    }).catch(error => {
+      console.log(error)
     })
   }
 }
@@ -67,7 +75,7 @@ export default {
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
 }
 
-tr:nth-child(n):hover{
+tr:nth-child(n):hover {
   background-color: #f4a261;
   opacity: 100;
 }
@@ -79,7 +87,7 @@ th, td {
   border-bottom: 1px solid #dee2e6;
 }
 
-tbody tr:nth-child(even){
+tbody tr:nth-child(even) {
   transition: background-color 0.3s ease;
 }
 
